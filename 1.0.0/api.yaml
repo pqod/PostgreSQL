@@ -5,8 +5,8 @@ description: A PostgreSQL shuffle Apps
 contact_info:
   name: sebastien
 actions:
-  - name: get_ip
-    description: Returns the n numbers of AbusePage
+  - name: query
+    description: Returns the numbers of AbusePage
     parameters:
       - name: dbname
         description: database name
