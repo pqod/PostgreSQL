@@ -5,14 +5,13 @@ FROM frikky/shuffle:app_sdk as base
 FROM base as builder
 
 # Install all alpine build tools needed for our pip installs
-RUN apk --no-cache add --update alpine-sdk libffi libffi-dev musl-dev openssl-dev
-
+RUN apk --no-cache add --update alpine-sdk libffi libffi-dev musl-dev openssl-dev postgresql-dev gcc python3-dev libpq
 # Install all of our pip packages in a single directory that we can copy to our base image later
 RUN mkdir /install
 WORKDIR /install
 COPY requirements.txt /requirements.txt
 RUN pip install --prefix="/install" -r /requirements.txt
-
+RUN pip install "psycopg[binary]"
 FROM base
 COPY --from=builder /install /usr/local
 COPY src /app
